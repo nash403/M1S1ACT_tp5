@@ -8,4 +8,8 @@ public class PartPizza {
 		haut_gauche = hg;
 		bas_droite = bd;
 	}
+	
+	public String toString(){
+		return "("+haut_gauche.x+","+haut_gauche.y+") à ("+bas_droite.x+","+bas_droite.y+")";
+	}
 }
