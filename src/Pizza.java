@@ -55,9 +55,9 @@ public class Pizza {
 
 			if (cpt_ham < jambon_mini_part)
 				return sc;
-			sc.nb_parts++;
 		}
 		sc.valide = true;
+		sc.parts = c.parts;
 		return sc;
 	}
 
