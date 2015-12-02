@@ -70,11 +70,9 @@ public class Pizza {
 				for (int j = 0; j < pizza[0].length; j++) {
 					for (int l = 1; l <= t; l++) {
 						// System.out.println(l+"/"+t);
-						if ((t % 2) == 1) {
-							if ((l != 1) && (l != t)) {
+						if (((t % 2) == 1) && (l != 1) && (l != t)) { // Ici on accepte juste les parts en "longueur"
 								// System.out.println("ici");
 								continue;
-							}
 						}
 						// System.out.println("là");
 						int x = i + (l - 1);
