@@ -1,6 +1,7 @@
 public class Score {
 	public int couverture = 0;
 	public int surface_chute;
+	public int nb_parts = 0;
 	public boolean valide = false;
 
 	public Score(int taille_pizza) {
