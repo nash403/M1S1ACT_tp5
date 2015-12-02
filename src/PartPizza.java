@@ -17,25 +17,28 @@ public class PartPizza {
 		int hg_rapportA_bd = 0;
 		int bd_rapportA_hg = 0;
 		int bd_rapportA_bd = 0;
+		
+		if (this.haut_gauche.x == pp.haut_gauche.x && this.haut_gauche.y == pp.haut_gauche.y) return true;
+		if (this.bas_droite.x == pp.bas_droite.x && this.bas_droite.y == pp.bas_droite.y) return true;
 
 		if (this.haut_gauche.x > pp.haut_gauche.x && this.haut_gauche.y > pp.haut_gauche.y)
 			hg_rapportA_hg = 1;
+		else if (this.haut_gauche.x < pp.haut_gauche.x && this.haut_gauche.y < pp.haut_gauche.y)
+			hg_rapportA_hg = 4;
 		else if (this.haut_gauche.x < pp.haut_gauche.x && this.haut_gauche.y > pp.haut_gauche.y)
 			hg_rapportA_hg = 2;
 		else if (this.haut_gauche.x > pp.haut_gauche.x && this.haut_gauche.y < pp.haut_gauche.y)
 			hg_rapportA_hg = 3;
-		else if (this.haut_gauche.x < pp.haut_gauche.x && this.haut_gauche.y < pp.haut_gauche.y)
-			hg_rapportA_hg = 4;
-
+		 
 		if (this.bas_droite.x > pp.haut_gauche.x && this.bas_droite.y > pp.haut_gauche.y)
 			hg_rapportA_bd = 1;
+		else if (this.bas_droite.x < pp.haut_gauche.x && this.bas_droite.y < pp.haut_gauche.y)
+			hg_rapportA_bd = 4;
 		else if (this.bas_droite.x < pp.haut_gauche.x && this.bas_droite.y > pp.haut_gauche.y)
 			hg_rapportA_bd = 2;
 		else if (this.bas_droite.x > pp.haut_gauche.x && this.bas_droite.y < pp.haut_gauche.y)
 			hg_rapportA_bd = 3;
-		else if (this.bas_droite.x < pp.haut_gauche.x && this.bas_droite.y < pp.haut_gauche.y)
-			hg_rapportA_bd = 4;
-
+		 
 		if (hg_rapportA_hg == 4 && hg_rapportA_bd == 1)
 			return true;
 
