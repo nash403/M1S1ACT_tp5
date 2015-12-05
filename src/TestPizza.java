@@ -41,6 +41,9 @@ public class TestPizza {
 			donnee.close();
 			Pizza pizza = new Pizza(lapizza, c, n);
 			System.out.println(pizza.all().size());
+//			for (PartPizza p : pizza.all()) {
+//				System.out.println("Part de taille " + ((p.bas_droite.x - p.haut_gauche.x + 1)* ( p.bas_droite.y - p.haut_gauche.y + 1)) + " : (" + p.haut_gauche.x + ", " + p.haut_gauche.y + ") (" + p.bas_droite.x + ", " + p.bas_droite.y + ")" );;
+//			}
 		}
 
 	}

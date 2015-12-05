@@ -75,11 +75,11 @@ public class Pizza {
 								continue;
 						}
 						// System.out.println("là");
-						int x = i + (l - 1);
+						int x = i + (l - 1); 
 						int y = j + (t / (x - i + 1)) - 1;
 						// System.out.println(t + ", (" + i + "," + j + "), " +
 						// l + " -> (" + x + "," + y + ")");
-						if (x < pizza.length && y < pizza[0].length) {
+						if (x < pizza.length && y < pizza[0].length && ((x - i + 1)*(y- j + 1) == t)) {
 							int cpt = 0;
 							for (Point p : jambons) {
 								if ((p.x >= i && p.x <= x) && (p.y >= j && p.y <= y))
