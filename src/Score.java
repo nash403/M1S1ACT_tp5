@@ -1,10 +1,11 @@
+import java.util.LinkedList;
 import java.util.List;
 
 public class Score {
 	public int couverture = 0;
 	public int surface_chute;
 	public boolean valide = false;
-	public List<PartPizza> parts;
+	public List<PartPizza> parts = new LinkedList<PartPizza>();
 
 	public Score(int taille_pizza) {
 		surface_chute = taille_pizza;

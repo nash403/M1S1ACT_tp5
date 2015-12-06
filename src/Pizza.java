@@ -5,12 +5,14 @@ import java.util.List;
 
 public class Pizza {
 	public Garniture[][] pizza;
+	public int size;
 	public int surface_max_part;
 	public int jambon_mini_part;
 	public List<Point> jambons = new ArrayList<Point>();
 
 	public Pizza(Garniture[][] piz, int c, int n) {
 		pizza = piz;
+		size = pizza.length*pizza[0].length;
 		surface_max_part = c;
 		jambon_mini_part = n;
 		for (int i = 0; i < pizza.length; i++) {
@@ -70,15 +72,11 @@ public class Pizza {
 				for (int j = 0; j < pizza[0].length; j++) {
 					for (int l = 1; l <= t; l++) {
 						// System.out.println(l+"/"+t);
-						if (((t % 2) == 1) && (l != 1) && (l != t)) { // Ici on accepte juste les parts en "longueur"
-								// System.out.println("ici");
-								continue;
+						if (t % l != 0) {//((t % 2) == 1) && (l != 1) && (l != t)) { // Ici on accepte juste les parts en "longueur"
+							continue;
 						}
-						// System.out.println("là");
 						int x = i + (l - 1); 
 						int y = j + (t / (x - i + 1)) - 1;
-						// System.out.println(t + ", (" + i + "," + j + "), " +
-						// l + " -> (" + x + "," + y + ")");
 						if (x < pizza.length && y < pizza[0].length && ((x - i + 1)*(y- j + 1) == t)) {
 							int cpt = 0;
 							for (Point p : jambons) {
