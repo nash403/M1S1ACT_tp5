@@ -3,10 +3,12 @@ import java.awt.Point;
 public class PartPizza {
 	public Point haut_gauche;
 	public Point bas_droite;
+	public int taille;
 
 	public PartPizza(Point hg, Point bd) {
 		haut_gauche = hg;
 		bas_droite = bd;
+		taille = (bd.x - hg.x + 1) * (bd.y - hg.y + 1);
 	}
 
 	public boolean overlaps(PartPizza pp) {

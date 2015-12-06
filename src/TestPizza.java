@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,9 +48,10 @@ public class TestPizza {
 			donnee.close();
 			Pizza pizza = new Pizza(lapizza, c, n);
 			System.out.println(pizza.all().size() + " parts générées");
-			Score test = bestScoreNbEssaiAlea(pizza, 1000);
+			Score test = bestScoreNbEssaiAlea(pizza, 300);
+			//Score test = scorePetitAuPlusGrand(pizza);
 			System.out.println("Resultat final : " + test.couverture);
-			extractResultat(test.parts);
+			extractResultat(test);
 		}
 
 	}
@@ -67,7 +69,35 @@ public class TestPizza {
 				break;
 		}
 		listAlea = null;
+		return pizza.resultat(new CertificatPizza(di.score.parts));
+	}
+	
+	static private Score scorePetitAuPlusGrand(Pizza pizza){
+		List<PartPizza> listTriee = pizza.all();
+		List<PartPizza> resultat = new ArrayList<PartPizza>();
+		Collections.sort(listTriee, new Comparator<PartPizza>(){
+			@Override
+			public int compare(PartPizza pp1, PartPizza pp2){
+				if (pp1.taille < pp2.taille) return -1;
+				if (pp1.taille > pp2.taille) return 1;
+				if (pp1.haut_gauche.x < pp2.haut_gauche.x) return -1;
+				if (pp1.haut_gauche.x > pp2.haut_gauche.x) return 1;
+				if (pp1.haut_gauche.y < pp2.haut_gauche.y) return -1;
+				if (pp1.haut_gauche.y > pp2.haut_gauche.y) return 1;
+				return 0;
+			}
+		});
+		DecoupageIntermediaire di = new DecoupageIntermediaire(pizza);
+		for (PartPizza p : listTriee) {
+			if (di.add(p))
+				resultat.add(p);
+
+			if (di.score.couverture >= pizza.size)
+				break;
+		}
+		listTriee = null;
 		return di.score;
+		
 	}
 
 	static private Score bestScoreNbEssaiAlea(Pizza pizza, int essai) {
@@ -86,16 +116,17 @@ public class TestPizza {
 		return result;
 	}
 
-	static private void extractResultat(List<PartPizza> listPart) {
+	static private void extractResultat(Score sc){//List<PartPizza> listPart) {
 		File f = new File("resulat.txt");
 		try {
 			FileWriter fw = new FileWriter(f);
 
-			fw.write(String.valueOf(listPart.size()));
-			fw.write("\n");
-			for (PartPizza p : listPart) {
-				fw.write(p.haut_gauche.x + " " + p.haut_gauche.y + " " + p.bas_droite.x + " " + p.bas_droite.y + "\n");
-			}
+//			fw.write(String.valueOf(listPart.size()));
+//			fw.write("\n");
+//			for (PartPizza p : listPart) {
+//				fw.write(p.haut_gauche.x + " " + p.haut_gauche.y + " " + p.bas_droite.x + " " + p.bas_droite.y + "\n");
+//			}
+			fw.write(sc.toString());
 			fw.close();
 		} catch (IOException e) {
 			System.out.println("Il y a eu une erreur lors de l'�criture sur le fichier :" + e.getMessage());
