@@ -18,7 +18,6 @@ public class DecoupageIntermediaire {
 		if ((pp.bas_droite.x - pp.haut_gauche.x) * (pp.haut_gauche.y - pp.bas_droite.y) > pizza.surface_max_part) {
 			return false;
 		}
-		//System.out.println("tentative ajout de "+pp);
 		int cpt_ham = 0; // compteur de jambon par part
 		for (int i = pp.haut_gauche.x; i <= pp.bas_droite.x; i++) {
 			for (int j = pp.haut_gauche.y; j <= pp.bas_droite.y; j++) {

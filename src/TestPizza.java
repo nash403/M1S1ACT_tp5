@@ -119,24 +119,42 @@ public class TestPizza {
 //					return 0;
 //				}
 //			}); // 8646
+//			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
+//				@Override
+//				public int compare(PartPizza pp1, PartPizza pp2) { // haut y décr d'abord, puis taille décr, puis haut x décr
+//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+//						return 1;
+//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+//						return -1;
+//					if (pp1.taille < pp2.taille)
+//						return 1;
+//					if (pp1.taille > pp2.taille)
+//						return -1;
+//					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+//						return 1;
+//					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+//						return -1;
+//					return 0;
+//				}
+//			}); // 8817
 			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
 				@Override
 				public int compare(PartPizza pp1, PartPizza pp2) { // haut y décr d'abord, puis taille décr, puis haut x décr
-					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-						return 1;
-					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-						return -1;
-					if (pp1.taille < pp2.taille)
-						return 1;
-					if (pp1.taille > pp2.taille)
-						return -1;
 					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
 						return 1;
 					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
 						return -1;
+					if (pp1.taille < pp2.taille)
+						return -1;
+					if (pp1.taille > pp2.taille)
+						return 1;
+					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+						return 1;
+					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+						return -1;
 					return 0;
 				}
-			});
+			}); // pas assez
 			System.out.println("\nResultat final : " + test.couverture);
 			extractResultat(test);
 		}
