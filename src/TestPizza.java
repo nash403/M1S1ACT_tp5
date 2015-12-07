@@ -30,7 +30,6 @@ public class TestPizza {
 				String line = donnee.next();
 				for (int j = 0; j < h; j++) {
 					char g = line.charAt(j);
-					// System.out.print(g);
 					switch (g) {
 					case 'T':
 						lapizza[i][j] = Garniture.TOMATE;
@@ -43,14 +42,102 @@ public class TestPizza {
 						throw new Exception("bad entry");
 					}
 				}
-				// System.out.println();
 			}
 			donnee.close();
 			Pizza pizza = new Pizza(lapizza, c, n);
 			System.out.println(pizza.all().size() + " parts générées");
-			Score test = bestScoreNbEssaiAlea(pizza, 300);
-			//Score test = scorePetitAuPlusGrand(pizza);
-			System.out.println("Resultat final : " + test.couverture);
+			// Score test = bestScoreNbEssaiAlea(pizza, 800); // 6526
+//			 Score test = scorePetitAuPlusGrand(pizza,new Comparator<PartPizza>() {
+//				@Override
+//				public int compare(PartPizza pp1, PartPizza pp2) { // taille croiss d'abord, puis haut x croiss, puis haut y croiss
+//					if (pp1.taille < pp2.taille)
+//						return -1;
+//					if (pp1.taille > pp2.taille)
+//						return 1;
+//					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+//						return -1;
+//					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+//						return 1;
+//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+//						return -1;
+//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+//						return 1;
+//					return 0;
+//				}
+//			}); // 3640
+//			 Score test = scoreComparatorSort(pizza,new Comparator<PartPizza>() {
+//					@Override
+//					public int compare(PartPizza pp1, PartPizza pp2) { // haut x décr d'abord, puis taille décr, puis haut y décr
+//						if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+//							return 1;
+//						if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+//							return -1;
+//						if (pp1.taille < pp2.taille)
+//							return 1;
+//						if (pp1.taille > pp2.taille)
+//							return -1;
+//						if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+//							return 1;
+//						if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+//							return -1;
+//						return 0;
+//					}
+//				}); //8663
+//			 Score test = scoreComparatorSort(pizza,new Comparator<PartPizza>() {
+//					@Override
+//					public int compare(PartPizza pp1, PartPizza pp2) { // taille décr d'abord, puis haut x décr, puis haut y décr
+//						if (pp1.taille < pp2.taille)
+//							return 1;
+//						if (pp1.taille > pp2.taille)
+//							return -1;
+//						if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+//							return 1;
+//						if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+//							return -1;
+//						if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+//							return 1;
+//						if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+//							return -1;
+//						return 0;
+//					}
+//				}); //8817
+//			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
+//				@Override
+//				public int compare(PartPizza pp1, PartPizza pp2) { // haut y croiss d'abord, puis taille décr, puis haut x croiss
+//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+//						return -1;
+//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+//						return 1;
+//					if (pp1.taille < pp2.taille)
+//						return 1;
+//					if (pp1.taille > pp2.taille)
+//						return -1;
+//					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+//						return -1;
+//					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+//						return 1;
+//					return 0;
+//				}
+//			}); // 8646
+			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
+				@Override
+				public int compare(PartPizza pp1, PartPizza pp2) { // haut y décr d'abord, puis taille décr, puis haut x décr
+					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+						return 1;
+					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+						return -1;
+					if (pp1.taille < pp2.taille)
+						return 1;
+					if (pp1.taille > pp2.taille)
+						return -1;
+					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+						return 1;
+					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+						return -1;
+					return 0;
+				}
+			});
+			System.out.println("\nResultat final : " + test.couverture);
 			extractResultat(test);
 		}
 
@@ -71,22 +158,11 @@ public class TestPizza {
 		listAlea = null;
 		return pizza.resultat(new CertificatPizza(di.score.parts));
 	}
-	
-	static private Score scorePetitAuPlusGrand(Pizza pizza){
+
+	static private Score scoreComparatorSort(Pizza pizza, Comparator<PartPizza> cp) {
 		List<PartPizza> listTriee = pizza.all();
 		List<PartPizza> resultat = new ArrayList<PartPizza>();
-		Collections.sort(listTriee, new Comparator<PartPizza>(){
-			@Override
-			public int compare(PartPizza pp1, PartPizza pp2){
-				if (pp1.taille < pp2.taille) return -1;
-				if (pp1.taille > pp2.taille) return 1;
-				if (pp1.haut_gauche.x < pp2.haut_gauche.x) return -1;
-				if (pp1.haut_gauche.x > pp2.haut_gauche.x) return 1;
-				if (pp1.haut_gauche.y < pp2.haut_gauche.y) return -1;
-				if (pp1.haut_gauche.y > pp2.haut_gauche.y) return 1;
-				return 0;
-			}
-		});
+		Collections.sort(listTriee, cp);
 		DecoupageIntermediaire di = new DecoupageIntermediaire(pizza);
 		for (PartPizza p : listTriee) {
 			if (di.add(p))
@@ -97,7 +173,7 @@ public class TestPizza {
 		}
 		listTriee = null;
 		return di.score;
-		
+
 	}
 
 	static private Score bestScoreNbEssaiAlea(Pizza pizza, int essai) {
@@ -116,16 +192,10 @@ public class TestPizza {
 		return result;
 	}
 
-	static private void extractResultat(Score sc){//List<PartPizza> listPart) {
-		File f = new File("resulat.txt");
+	static private void extractResultat(Score sc) {
+		File f = new File("resultat_" + sc.couverture + ".txt");
 		try {
 			FileWriter fw = new FileWriter(f);
-
-//			fw.write(String.valueOf(listPart.size()));
-//			fw.write("\n");
-//			for (PartPizza p : listPart) {
-//				fw.write(p.haut_gauche.x + " " + p.haut_gauche.y + " " + p.bas_droite.x + " " + p.bas_droite.y + "\n");
-//			}
 			fw.write(sc.toString());
 			fw.close();
 		} catch (IOException e) {

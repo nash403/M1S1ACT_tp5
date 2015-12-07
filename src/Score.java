@@ -12,8 +12,6 @@ public class Score {
 	}
 
 	public String toString() {
-//		return valide ? "Score: " + couverture + ", surface de chute : "
-//				+ surface_chute : "Non valide";
 		StringBuilder sb = new StringBuilder();
 		sb.append(parts.size()+"\n");
 		for (PartPizza pp:parts){

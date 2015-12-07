@@ -22,16 +22,9 @@ public class DecoupageIntermediaire {
 		int cpt_ham = 0; // compteur de jambon par part
 		for (int i = pp.haut_gauche.x; i <= pp.bas_droite.x; i++) {
 			for (int j = pp.haut_gauche.y; j <= pp.bas_droite.y; j++) {
-				//System.out.println("test ("+i+","+j+") "+verificationTable[i][j]);
 				if (verificationTable[i][j]) { // ici il y a overlap
-					// il faut revenir à l'état de départ avant l'appel de la
-					// méthode
-					//for (int i_prime = 0; i_prime <= i; i_prime++)
-						//for (int j_prime = 0; j_prime < j; j_prime++)
-							//verificationTable[i_prime][j_prime] = false;
 					return false;
 				}
-				//verificationTable[i][j] = true;
 				// test de présence de jambon
 				cpt_ham = pizza.pizza[i][j].equals(Garniture.JAMBON) ? cpt_ham + 1 : cpt_ham;
 			}
@@ -46,7 +39,6 @@ public class DecoupageIntermediaire {
 		score.parts.add(pp);
 		score.couverture += pp.taille;
 		score.surface_chute -= pp.taille;
-		//System.out.println("part ajoutée "+score);
 		return true;
 	}
 }

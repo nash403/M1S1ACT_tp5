@@ -73,6 +73,6 @@ public class PartPizza {
 	}
 
 	public String toString() {
-		return "(" + haut_gauche.x + "," + haut_gauche.y + ") à (" + bas_droite.x + "," + bas_droite.y + ")";
+		return "Part de taille "+taille+", (" + haut_gauche.x + "," + haut_gauche.y + ") à (" + bas_droite.x + "," + bas_droite.y + ")";
 	}
 }
