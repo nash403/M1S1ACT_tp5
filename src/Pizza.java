@@ -9,10 +9,11 @@ public class Pizza {
 	public int surface_max_part;
 	public int jambon_mini_part;
 	public List<Point> jambons = new ArrayList<Point>();
+	public List<PartPizza> allParts = null;
 
 	public Pizza(Garniture[][] piz, int c, int n) {
 		pizza = piz;
-		size = pizza.length*pizza[0].length;
+		size = pizza.length * pizza[0].length;
 		surface_max_part = c;
 		jambon_mini_part = n;
 		for (int i = 0; i < pizza.length; i++) {
@@ -21,6 +22,12 @@ public class Pizza {
 					jambons.add(new Point(i, j));
 			}
 		}
+	}
+
+	public List<PartPizza> getAll() {
+		if (allParts == null)
+			allParts = all();
+		return allParts;
 	}
 
 	public int nbJambons() {
@@ -72,23 +79,25 @@ public class Pizza {
 				for (int j = 0; j < pizza[0].length; j++) {
 					for (int l = 1; l <= t; l++) {
 						// System.out.println(l+"/"+t);
-						if (t % l != 0) {// Ici on accepte juste les parts en "longueur"
+						if (t % l != 0) {// Ici on accepte juste les parts en
+											// "longueur"
 							continue;
 						}
-						int x = i + (l - 1); 
+						int x = i + (l - 1);
 						int y = j + (t / (x - i + 1)) - 1;
-						if (x < pizza.length && y < pizza[0].length && ((x - i + 1)*(y- j + 1) == t)) {
+						if (x < pizza.length && y < pizza[0].length && ((x - i + 1) * (y - j + 1) == t)) {
 							int cpt = 0;
 							for (Point p : jambons) {
 								if ((p.x >= i && p.x <= x) && (p.y >= j && p.y <= y))
 									cpt++;
-								if (cpt >= jambon_mini_part) {
-									PartPizza pp = new PartPizza(new Point(i, j), new Point(x, y));
-									// System.out.println("on ajoute " + pp + "
-									// avec " + cpt + " jambons");
-									parts.add(pp);
-									break;
-								}
+							}
+							if (cpt >= jambon_mini_part) {
+								PartPizza pp = new PartPizza(new Point(i, j), new Point(x, y));
+								// System.out.println("on ajoute " + pp + "
+								// avec " + cpt + " jambons");
+								pp.jambons = cpt;
+								parts.add(pp);
+								// break;
 							}
 						}
 					}

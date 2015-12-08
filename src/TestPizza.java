@@ -46,123 +46,45 @@ public class TestPizza {
 			donnee.close();
 			Pizza pizza = new Pizza(lapizza, c, n);
 			System.out.println(pizza.all().size() + " parts générées");
-			// Score test = bestScoreNbEssaiAlea(pizza, 800); // 6526
-//			 Score test = scorePetitAuPlusGrand(pizza,new Comparator<PartPizza>() {
-//				@Override
-//				public int compare(PartPizza pp1, PartPizza pp2) { // taille croiss d'abord, puis haut x croiss, puis haut y croiss
-//					if (pp1.taille < pp2.taille)
-//						return -1;
-//					if (pp1.taille > pp2.taille)
-//						return 1;
-//					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
-//						return -1;
-//					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
-//						return 1;
-//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-//						return -1;
-//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-//						return 1;
-//					return 0;
-//				}
-//			}); // 3640
-//			 Score test = scoreComparatorSort(pizza,new Comparator<PartPizza>() {
-//					@Override
-//					public int compare(PartPizza pp1, PartPizza pp2) { // haut x décr d'abord, puis taille décr, puis haut y décr
-//						if (pp1.haut_gauche.x < pp2.haut_gauche.x)
-//							return 1;
-//						if (pp1.haut_gauche.x > pp2.haut_gauche.x)
-//							return -1;
-//						if (pp1.taille < pp2.taille)
-//							return 1;
-//						if (pp1.taille > pp2.taille)
-//							return -1;
-//						if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-//							return 1;
-//						if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-//							return -1;
-//						return 0;
-//					}
-//				}); //8663
-//			 Score test = scoreComparatorSort(pizza,new Comparator<PartPizza>() {
-//					@Override
-//					public int compare(PartPizza pp1, PartPizza pp2) { // taille décr d'abord, puis haut x décr, puis haut y décr
-//						if (pp1.taille < pp2.taille)
-//							return 1;
-//						if (pp1.taille > pp2.taille)
-//							return -1;
-//						if (pp1.haut_gauche.x < pp2.haut_gauche.x)
-//							return 1;
-//						if (pp1.haut_gauche.x > pp2.haut_gauche.x)
-//							return -1;
-//						if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-//							return 1;
-//						if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-//							return -1;
-//						return 0;
-//					}
-//				}); //8817
-//			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
-//				@Override
-//				public int compare(PartPizza pp1, PartPizza pp2) { // haut y croiss d'abord, puis taille décr, puis haut x croiss
-//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-//						return -1;
-//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-//						return 1;
-//					if (pp1.taille < pp2.taille)
-//						return 1;
-//					if (pp1.taille > pp2.taille)
-//						return -1;
-//					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
-//						return -1;
-//					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
-//						return 1;
-//					return 0;
-//				}
-//			}); // 8646
+			Score test = bestScoreNbEssai(pizza,10000);
 //			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
 //				@Override
 //				public int compare(PartPizza pp1, PartPizza pp2) { // haut y décr d'abord, puis taille décr, puis haut x décr
-//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-//						return 1;
-//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-//						return -1;
 //					if (pp1.taille < pp2.taille)
 //						return 1;
 //					if (pp1.taille > pp2.taille)
 //						return -1;
+//					if (pp1.jambons < pp2.jambons)
+//						return -1;
+//					if (pp1.jambons > pp2.jambons)
+//						return 1;
 //					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
 //						return 1;
 //					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+//						return -1;
+//					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+//						return 1;
+//					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
 //						return -1;
 //					return 0;
 //				}
 //			}); // 8817
-			Score test = scoreComparatorSort(pizza, new Comparator<PartPizza>() {
-				@Override
-				public int compare(PartPizza pp1, PartPizza pp2) { // haut y décr d'abord, puis taille décr, puis haut x décr
-					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
-						return 1;
-					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
-						return -1;
-					if (pp1.taille < pp2.taille)
-						return -1;
-					if (pp1.taille > pp2.taille)
-						return 1;
-					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
-						return 1;
-					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
-						return -1;
-					return 0;
-				}
-			}); // pas assez
-			System.out.println("\nResultat final : " + test.couverture);
+			System.out.println("\nScore final : " + test.couverture);
 			extractResultat(test);
+//			List<PartPizza> lis = pizza.all();
+//			PartPizza p = lis.get(2356);
+//			int i =0;
+//			for (PartPizza pp : lis){
+//				if (i > 2440) break;
+//				System.out.println("comparaison "+p+" et "+pp+" -> "+pp.overlaps(p));
+//				i++;
+//			}
 		}
 
 	}
 
 	static private Score scorePizzaAlea(Pizza pizza) {
-		List<PartPizza> listAlea = pizza.all();
+		List<PartPizza> listAlea = pizza.getAll();
 		List<PartPizza> resultat = new ArrayList<PartPizza>();
 		Collections.shuffle(listAlea);
 		DecoupageIntermediaire di = new DecoupageIntermediaire(pizza);
@@ -178,8 +100,9 @@ public class TestPizza {
 	}
 
 	static private Score scoreComparatorSort(Pizza pizza, Comparator<PartPizza> cp) {
-		List<PartPizza> listTriee = pizza.all();
+		List<PartPizza> listTriee = pizza.getAll();
 		List<PartPizza> resultat = new ArrayList<PartPizza>();
+		Collections.shuffle(listTriee);
 		Collections.sort(listTriee, cp);
 		DecoupageIntermediaire di = new DecoupageIntermediaire(pizza);
 		for (PartPizza p : listTriee) {
@@ -194,20 +117,43 @@ public class TestPizza {
 
 	}
 
-	static private Score bestScoreNbEssaiAlea(Pizza pizza, int essai) {
+	static private Score bestScoreNbEssai(Pizza pizza, int essai) {
 		Score result = null;
 		int bestScore = 0;
-		for (int i = 1; i <= essai; i++) {
-			Score score = scorePizzaAlea(pizza);
+		//for (int i = 1; i <= essai; i++) {
+		while(true){
+			Score score = scoreComparatorSort(pizza,new Comparator<PartPizza>() {
+				@Override
+				public int compare(PartPizza pp1, PartPizza pp2) { // haut y décr d'abord, puis taille décr, puis haut x décr
+					if (pp1.taille < pp2.taille)
+						return 1;
+					if (pp1.taille > pp2.taille)
+						return -1;
+					if (pp1.jambons < pp2.jambons)
+						return -1;
+					if (pp1.jambons > pp2.jambons)
+						return 1;
+					if (pp1.haut_gauche.x < pp2.haut_gauche.x)
+						return -1;
+					if (pp1.haut_gauche.x > pp2.haut_gauche.x)
+						return 1;
+					if (pp1.haut_gauche.y < pp2.haut_gauche.y)
+						return -1;
+					if (pp1.haut_gauche.y > pp2.haut_gauche.y)
+						return 1;
+					return 0;
+				}
+			});
 			if (score.couverture > bestScore) {
 				System.out.println(
 						"\nNouveau meilleur score : " + score.couverture + " (score précédent : " + bestScore + ")");
 				bestScore = score.couverture;
 				result = score;
+				extractResultat(score);
 			}
-			System.out.print("\r(Essai " + i + ") Meilleur score pour l'instant : " + bestScore + " !!");
+			System.out.print("\r Meilleur score pour l'instant : " + bestScore + " !!");
 		}
-		return result;
+		//return result;
 	}
 
 	static private void extractResultat(Score sc) {

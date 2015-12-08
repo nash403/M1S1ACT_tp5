@@ -4,11 +4,16 @@ public class PartPizza {
 	public Point haut_gauche;
 	public Point bas_droite;
 	public int taille;
+	public int jambons = 0;
+	public int largeur;
+	public int hauteur;
 
 	public PartPizza(Point hg, Point bd) {
 		haut_gauche = hg;
 		bas_droite = bd;
 		taille = (bd.x - hg.x + 1) * (bd.y - hg.y + 1);
+		largeur = bas_droite.x - haut_gauche.x +1;
+		hauteur = bas_droite.y - haut_gauche.y +1;
 	}
 
 	public boolean overlaps(PartPizza pp) {
@@ -22,6 +27,11 @@ public class PartPizza {
 		
 		if (this.haut_gauche.x == pp.haut_gauche.x && this.haut_gauche.y == pp.haut_gauche.y) return true;
 		if (this.bas_droite.x == pp.bas_droite.x && this.bas_droite.y == pp.bas_droite.y) return true;
+		
+		if (this.haut_gauche.x == pp.haut_gauche.x && (this.haut_gauche.y <= pp.haut_gauche.y && this.bas_droite.y >= pp.haut_gauche.y)) return true;
+		if (this.haut_gauche.y == pp.haut_gauche.y && (this.haut_gauche.x <= pp.haut_gauche.x && this.bas_droite.x >= pp.haut_gauche.x)) return true;
+		if (this.bas_droite.x == pp.haut_gauche.x && (this.haut_gauche.y <= pp.haut_gauche.y && this.bas_droite.y >= pp.haut_gauche.y)) return true;
+		if (this.bas_droite.y == pp.haut_gauche.y && (this.haut_gauche.x <= pp.haut_gauche.x && this.bas_droite.x >= pp.haut_gauche.x)) return true;
 
 		if (this.haut_gauche.x > pp.haut_gauche.x && this.haut_gauche.y > pp.haut_gauche.y)
 			hg_rapportA_hg = 1;
@@ -68,6 +78,8 @@ public class PartPizza {
 		if ((hg_rapportA_hg == 1 || hg_rapportA_hg == 2 || hg_rapportA_hg == 3) && hg_rapportA_bd == 1
 				&& bd_rapportA_hg == 4 && (bd_rapportA_bd == 2 || bd_rapportA_bd == 3 || bd_rapportA_bd == 4))
 			return true;
+		
+		if (hg_rapportA_hg == 0 || hg_rapportA_bd == 0 || bd_rapportA_hg == 0 || bd_rapportA_bd == 0) return true;
 
 		return false;
 	}
